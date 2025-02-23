@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- import favicon libary -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>TripAdvisor</title>
+    <link rel="icon" type="image/x-icon" href="/images/book_atlas.png">
+    <!-- import javascript files -->
+    <script src="js/script.js" defer></script>
+    <script src="js/location.js" defer></script>    
+    <script src="js/map3.js" defer></script>
+</head>
+<body>
+    <!-- Need Browser API to get the current cordinate of the user. -->
+    
+    <form onsubmit="submitForm(event)" method="" id="YourLocationForm">
+        <!-- Select the type of places you want to search for  -->
+        <label for="type_of_places">Look for </label>
+        <select id="typeOfPlace" name="typeOfPlace" required>
+            <option value="" disabled selected>Please, choose an option</option>
+            <option value="tourist_attraction">TURISTIC ATTRACTIONS</option>
+            <option value="art_gallery">ART GALLERIES</option>
+            <option value="museum">MUSEUMS</option>
+            <option value="park">PARKS</option>
+            <!-- <option value="hiking_area">hicking areas</option> -->
+        </select>
+        <!-- Select the searching radious in km -->
+        <label for="radious"> ,within: </label>
+        <input type="number" id="radius" name="radius" value="0" step="0.1" min="0" required>
+        <span> km</span>
+        <!-- The starting location, around you are looking for places -->
+        <label for="startLocation">nearby </label>
+        <input type="text" id="YourLocation" name="YourLocation" placeholder="Please, enter a location" required>
+        <!-- Get the longitude and langitude as well, to be able to send hiddenly through submittion of the form. -->
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+        <!-- Button to get the geolocation of your position -->
+        <button type="button" onclick="getLocation()"> <i class="fa-solid fa-location-crosshairs"></i> </button>
+      
+        <!-- Submitting button -->
+        <button type="submit" form="YourLocationForm" value="Submit">Submit</button><br>
+    </form>
+    <!-- <p id="location"></p> -->
+
+
+    <div id="map"></div>
+
+    <!-- Here I would retun the results from google maps nearby, just the names of the places in a list -->
+    <div id="results">
+       
+    </div>
+
+    <!-- <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBki1OuAdY0Y0CJ139WqEN-6D6qDbBh46w&callback=initMap&libraries=places&v=weekly"
+    ></script> -->
+
+    <!-- <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=places&v=weekly"
+      defer
+    ></script> -->
+    <!-- <script>
+        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({
+          key: "AIzaSyBki1OuAdY0Y0CJ139WqEN-6D6qDbBh46w",
+          v: "weekly",
+          // Use the 'v' parameter to indicate the version to use (weekly, beta, alpha, etc.).
+          // Add other bootstrap parameters as needed, using camel case.
+        });
+
+        // Initialize and add the map
+        let map;
+
+        async function initMap() {
+            // The location of Uluru
+            // Request needed libraries.
+            //@ts-ignore
+            const { Map } = await google.maps.importLibrary("maps");
+            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+
+//             navigator.geolocation.getCurrentPosition((position) => {
+//                  doSomething(position.coords.latitude, position.coords.longitude);
+//              });
+
+
+            navigator.geolocation.getCurrentPosition((position) => {
+                position = { lat: position.coords.latitude, lng: position.coords.longitude };
+    
+                const map = new Map(document.getElementById("map"), {
+                    zoom: 15,
+                    center: position,
+                    mapId: "DEMO_MAP_ID",
+                    backgroundColor: "pink",
+                });
+    
+                new AdvancedMarkerElement({
+                    map: map,
+                    position: position,
+                    title: 'You are here'
+                });
+            });
+
+            // const markerPosition = { lat: -24, lng: 130 };
+            // new AdvancedMarkerElement({
+            //     map: map,
+            //     position: markerPosition,
+            //     title: 'A'
+            // });
+
+            // const markerBPosition = { lat: -25, lng: 132 };
+            // new AdvancedMarkerElement({
+            //     map: map,
+            //     position: markerBPosition,
+            //     title: 'B'
+            // });
+
+            // const markerCPosition = { lat: -27, lng: 122 };
+            // new AdvancedMarkerElement({
+            //     map: map,
+            //     position: markerCPosition,
+            //     title: 'C'
+            // });
+
+        }
+
+        initMap();
+    </script> -->
+</body>
+</html>
